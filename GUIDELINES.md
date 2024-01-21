@@ -2,7 +2,7 @@
 
 ### Visão geral:
 
-O time de desenvolvimento de uma empresa precisa de sua ajuda para criar um sistema de gerenciamento de tarefas. O objetivo � desenvolver uma **API** que permita aos usu�rios organizar e monitorar suas tarefas di�rias, bem como colaborar com colegas de equipe.
+O time de desenvolvimento de uma empresa precisa de sua ajuda para criar um sistema de gerenciamento de tarefas. O objetivo é desenvolver uma **API** que permita aos usuários organizar e monitorar suas tarefas di�rias, bem como colaborar com colegas de equipe.
 
 ---
 
