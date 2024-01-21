@@ -3,5 +3,5 @@ using Task = TaskManager.Domain.Entities.Task;
 
 namespace TaskManager.API.Repositories.Interfaces
 {
-    public interface ITaskRepository : IBaseRepository<TaskModel, Task, int> { }
+    public interface ITaskRepository : ICompoundModelRepository<TaskModel, Task, int, int> { }
 }

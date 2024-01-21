@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.Extensions.Hosting;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace TaskManager.API.Models
@@ -9,16 +10,12 @@ namespace TaskManager.API.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Key]
         public int Id { get; set; }
-
         [Required]
         public string Name { get; set; } = string.Empty;
-
-        public List<TaskModel> Tasks { get; set; } = [];
-
-
         [Required]
         public Guid UserId { get; set; }
-
         public virtual UserModel User { get; set; }
+        public ICollection<TaskModel> Tasks { get; } = new List<TaskModel>();
+
     }
 }

@@ -2,7 +2,7 @@
 {
     public class Project
     {
-        public string Title { get; set; } = string.Empty;
+        public string Name { get; set; } = string.Empty;
         public List<Task> Tasks { get; set; } = [];
     }
 }

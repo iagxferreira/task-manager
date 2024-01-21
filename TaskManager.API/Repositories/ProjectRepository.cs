@@ -9,9 +9,9 @@ namespace TaskManager.API.Repositories
 {
     public class ProjectRepository(TaskManagerDataContext context) : BaseRepository(context), IProjectRepository
     {
-        public async Task<ProjectModel> Create(Project project)
+        public async Task<ProjectModel> Create(Project project, Guid userId)
         {
-            var model = new ProjectModel() { Id = 0, };
+            var model = new ProjectModel() { Id = 0, Name = project.Name, UserId = userId };
             this.context.Projects.Add(model);
             await this.context.SaveChangesAsync();
             return model;
@@ -26,12 +26,25 @@ namespace TaskManager.API.Repositories
             return model;
         }
 
-        public async Task<List<ProjectModel>> Read() => await context.Projects.ToListAsync();
-        public async Task<ProjectModel?> ReadById(int id) => await context.Projects.FirstOrDefaultAsync(item => item.Id == id);
+        public async Task<List<ProjectModel>> Read() => await context.Projects
+            .ToListAsync();
+
+        public async Task<ProjectModel?> ReadById(int id) => await context.Projects
+                .FirstOrDefaultAsync(u => u.Id == id);
 
         public Task<ProjectModel> Update(int id, Project domain)
         {
             throw new NotImplementedException();
+        }
+
+        public async Task<ProjectModel> AddTask(int id, TaskModel task)
+        {
+            var project = await this.context.Projects.Include(item => item.Tasks).FirstOrDefaultAsync(item => item.Id == id);
+            if (project == null) throw new Exception("Projeto não encontrado");
+            task.ProjectId = project.Id;
+            project.Tasks.Add(task);
+            await this.context.SaveChangesAsync();
+            return project;
         }
     }
 }

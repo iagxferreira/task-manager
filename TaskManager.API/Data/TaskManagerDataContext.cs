@@ -9,6 +9,8 @@ namespace TaskManager.API.Data
 
         protected override void OnConfiguring(DbContextOptionsBuilder options)
             => options.UseSqlServer(_configuration.GetConnectionString("DefaultConnection"));
+
+        
         public DbSet<UserModel> Users { get; set; }
         public DbSet<ProjectModel> Projects { get; set; }
         public DbSet<TaskModel> Tasks { get; set; }

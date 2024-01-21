@@ -9,9 +9,9 @@ namespace TaskManager.API.Repositories
 {
     public class TaskRepository(TaskManagerDataContext context) : BaseRepository(context), ITaskRepository
     {
-        public async Task<TaskModel> Create(TaskDomain task)
+        public async Task<TaskModel> Create(TaskDomain task, int projectId)
         {
-            var model = new TaskModel() { Id = 0, Title = task.Title, DueDate = task.DueDate, Status = task.Status };
+            var model = new TaskModel() { Id = 0, Title = task.Title, DueDate = task.DueDate, Status = task.Status, ProjectId = projectId };
             this.context.Tasks.Add(model);
             await this.context.SaveChangesAsync();
             return model;

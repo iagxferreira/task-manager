@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using TaskManager.Domain.Entities;
 using TaskManager.Domain.Enum;
 
 namespace TaskManager.API.Models
@@ -22,8 +23,5 @@ namespace TaskManager.API.Models
 
         [Required]
         public int ProjectId { get; set; }
-
-        [Required]
-        public virtual ProjectModel Project { get; set; }
     }
 }

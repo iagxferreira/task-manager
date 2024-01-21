@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using System.Text.Json.Serialization;
 using TaskManager.API.Data;
 using TaskManager.API.Helpers;
 using TaskManager.API.Repositories;
