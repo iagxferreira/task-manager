@@ -1,10 +1,11 @@
-﻿using TaskManager.Domain.Entities;
+﻿using TaskManager.API.Models;
+using TaskManager.Domain.Entities;
 
 namespace TaskManager.API.Services.Interfaces
 {
     public interface IUserService
     {
-        public IEnumerable<User> FindAll();
-        public User Create();
+        public Task<List<UserModel>> FindAll();
+        public Task<UserModel> Create(User user);
     }
 }

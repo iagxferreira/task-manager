@@ -3,16 +3,14 @@ using TaskManager.API.Models;
 
 namespace TaskManager.API.Data
 {
-    public class TaskManagerDataContext : DbContext
+    public class TaskManagerDataContext(DbContextOptions<TaskManagerDataContext> options, IConfiguration configuration) : DbContext(options)
     {
-        private readonly IConfiguration _configuration;
-        public TaskManagerDataContext(DbContextOptions<TaskManagerDataContext> options, IConfiguration configuration)
-            : base(options)
-        {
-            _configuration = configuration;
-        }
+        private readonly IConfiguration _configuration = configuration;
+
         protected override void OnConfiguring(DbContextOptionsBuilder options)
             => options.UseSqlServer(_configuration.GetConnectionString("DefaultConnection"));
         public DbSet<UserModel> Users { get; set; }
+        public DbSet<ProjectModel> Projects { get; set; }
+        public DbSet<TaskModel> Tasks { get; set; }
     }
 }

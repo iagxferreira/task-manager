@@ -10,8 +10,14 @@
                 app.UseSwaggerUI();
             }
 
+            app.UseExceptionHandler("/error");
             app.MapControllers();
             app.UseHttpsRedirection();
+
+            app.UseCors(x => x
+               .AllowAnyOrigin()
+               .AllowAnyMethod()
+               .AllowAnyHeader());
 
             return app;
         }

@@ -1,38 +1,36 @@
 ﻿
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using TaskManager.API.Extensions;
 using TaskManager.API.Models;
-using TaskManager.API.Repositories.Interfaces;
+using TaskManager.API.Services.Interfaces;
 using TaskManager.API.ViewModels;
 using TaskManager.Domain.Entities;
 
 namespace TaskManager.API.Controllers
 {
-    [Route("v1/users")]
-    public class UserController : ControllerBase
+    public class UserController(IUserService service, IMapper mapper) : ControllerBase
     {
-        private readonly IUserRepository _repository;
-
-        public UserController(IUserRepository repository)
-        {
-            _repository = repository;
-        }
+        private readonly IUserService service = service;
+        private readonly IMapper mapper = mapper;
 
         [HttpGet]
+        [Route("v1/users")]
         public async Task<IActionResult> Index()
         {
-            return Ok(new ResultViewModel<List<UserModel>>(await _repository.Read()));
+            return Ok(new ResultViewModel<List<UserModel>>(await service.FindAll()));
         }
 
         [HttpPost]
+        [Route("v1/user")]
         public async Task<IActionResult> Create([FromBody] UserViewModel model)
         {
             if (!ModelState.IsValid) return BadRequest(new ResultViewModel<string>(ModelState.GetErrors()));
 
             try
             {
-                var user = await _repository.Create(new User() { Email = model.Email, Name = model.Name });
+                var user = await service.Create(mapper.Map<User>(model));
                 return Ok(new ResultViewModel<UserModel>(user));
             }
             catch (DbUpdateException)

@@ -3,5 +3,5 @@ using TaskManager.Domain.Entities;
 
 namespace TaskManager.API.Repositories.Interfaces
 {
-    public interface IUserRepository : IBaseRepository<UserModel, User, Guid> { }
+    public interface IProjectRepository : IBaseRepository<ProjectModel, Project, int> { }
 }

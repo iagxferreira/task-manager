@@ -1,24 +1,23 @@
-﻿using TaskManager.API.Repositories.Interfaces;
+﻿using AutoMapper;
+using TaskManager.API.Models;
+using TaskManager.API.Repositories.Interfaces;
 using TaskManager.Domain.Entities;
 
 namespace TaskManager.API.Services.Interfaces
 {
-    public class UserService : IUserService
+    public class UserService(IUserRepository repository, IMapper mapper) : IUserService
     {
-        private readonly IUserRepository _repository;
-        public UserService(IUserRepository repository)
+        private readonly IUserRepository repository = repository;
+        private readonly IMapper mapper = mapper;
+
+        public async Task<UserModel> Create(User user)
         {
-            this._repository = repository;
+            return await repository.Create(user);
         }
 
-        public User Create()
+        public async Task<List<UserModel>> FindAll()
         {
-            throw new NotImplementedException();
-        }
-
-        public IEnumerable<User> FindAll()
-        {
-            throw new NotImplementedException();
+            return await repository.Read();
         }
     }
 }
